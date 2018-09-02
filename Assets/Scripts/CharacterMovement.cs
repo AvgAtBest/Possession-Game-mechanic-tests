@@ -87,6 +87,7 @@ public class CharacterMovement : MonoBehaviour
                 pRigid.position = enemy.gameObject.transform.position;
                 Destroy(enemy.gameObject);
                 isShadow = false;
+                isPossessed = true;
                 Debug.Log("Entered wrong house fool");
             }
             Debug.Log("Lolwhayt");
@@ -98,11 +99,14 @@ public class CharacterMovement : MonoBehaviour
         shadowForm.SetActive(true);
         enemyForm.SetActive(false);
         playerHealth.enabled = true;
+        isPossessed = false;
         sMoveSpeed = 3.75f;
+        gunC.isFiring = false;
     }
     public void PuppetForm()
     {
         Debug.Log("Enemy form");
+        isPossessed = true;
         shadowForm.SetActive(false);
         enemyForm.SetActive(true);
         playerHealth.enabled = true;

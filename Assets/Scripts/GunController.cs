@@ -8,16 +8,16 @@ public class GunController : MonoBehaviour
     public BulletController bullet;
     public float bulletSpeed;
     public float timeBetweenShots;
-    private float shotCounter;
+    public float shotCounter;
     public Transform firePoint;
     public EnemyHealth enemyH;
     public int bDamage = 20;
+    public GameObject enemy;
 
-    GameObject enemy;
     void Start()
     {
         enemy = GameObject.FindGameObjectWithTag("Enemy");
-        enemyH = enemy.GetComponent<EnemyHealth>();
+        enemyH = enemy.GetComponentInChildren<EnemyHealth>();
     }
 
 
@@ -26,6 +26,10 @@ public class GunController : MonoBehaviour
         if (isFiring)
         {
             Shoot();
+        }
+        else
+        {
+
         }
     }
     void Shoot()
@@ -43,7 +47,7 @@ public class GunController : MonoBehaviour
         if (Physics.Raycast(ray, out hit, 100f))
         {
             Debug.Log("Skrat skrat");
-            if (hit.collider.name == "Enemy")
+            if (hit.collider.gameObject.tag == "Enemy")
             {
                 enemyH.TakeDamage(bDamage);
             }

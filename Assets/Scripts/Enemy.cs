@@ -5,31 +5,44 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
-    public Transform target;
+    public Transform player;
     public NavMeshAgent agent;
+    public GameObject playerCap;
     public float mSpeed = 2.75f;
     public float timeBetweenAttacks = 2.5f;
-    public int damage = 10;
-    public float attackRadius = 1f;
-    public float seekRadius = 5f;
-    HealthController pHealth;
-    EnemyHealth eHealth;
-    private float distToTarget;
+    public int damage = 30;
+    public float attackRadius = 4f;
+    public HealthController pHealth;
+    public EnemyHealth eHealth;
+    public float distToTarget;
     private float timer;
-    void Start ()
+    //public RigidBody eRigidBody;
+    void Awake ()
     {
-        target = GameObject.Find("Controller").GetComponent<Transform>();
-        pHealth = GameObject.Find("Controller").GetComponent<HealthController>();
-        eHealth = GameObject.Find("Enemy").GetComponent<EnemyHealth>();
+        playerCap = GameObject.FindGameObjectWithTag("Player");
+        player = playerCap.GetComponent<Transform>();
+        pHealth = playerCap.GetComponent<HealthController>();
+        eHealth = GetComponent<EnemyHealth>();
+        //eRigidBody = GetComponent<RigidBody>();
 	}
-	
-	// Update is called once per frame
-	void Update ()
+
+    void Update()
     {
-        agent.SetDestination(target.position);
-        //distToTarget = Vector3.Distance(transform.position, target.position);
-        //if (distToTarget < attackRadius && pHealth.sCurHealth > 0 && pHealth.pCurHealth > 0)
-        if (distToTarget <= seekRadius && timer >= timeBetweenAttacks && pHealth.sCurHealth > 0)
+        timer += Time.deltaTime;
+        distToTarget = Vector3.Distance(transform.position, player.position);
+
+        if (eHealth.enemyCuHP > 0 && pHealth.sCurHealth > 0)
+        {
+            agent.SetDestination(player.position);
+            if (distToTarget < attackRadius && timer >= timeBetweenAttacks && pHealth.sCurHealth > 0 && pHealth.pCurHealth > 0)
+            {
+                Attack();
+            }
+        }
+    }
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject == playerCap)
         {
             Attack();
         }
@@ -37,6 +50,7 @@ public class Enemy : MonoBehaviour
     void Attack()
     {
         timer = 0f;
+        Debug.Log("Attacking!");
         pHealth.TakeDamage(damage);
     }
 }

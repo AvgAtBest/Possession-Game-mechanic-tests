@@ -12,10 +12,10 @@ public class HealthController : MonoBehaviour
     public float pMaxHealth;
     public float pCurHealth;
     bool isPossessed;
-    bool isDead;
+    bool isDead = false;
     bool damaged;
     public CharacterMovement charM;
-    GameObject controller;
+
 	public void Start ()
     {
         charM = this.GetComponent<CharacterMovement>();
@@ -23,8 +23,10 @@ public class HealthController : MonoBehaviour
 
         sMaxHealth = 200f;
         sCurHealth = sMaxHealth;
+
         pMaxHealth = 100f;
         pCurHealth = pMaxHealth;
+
 	}
     public void Update()
     {
@@ -78,7 +80,24 @@ public class HealthController : MonoBehaviour
     }
     public void TakeDamage (int damage)
     {
-        sCurHealth -= damage;
+        if (charM.isShadow)
+        {
+            sCurHealth -= damage;
+            if (sCurHealth <= 0 && !isDead)
+            {
+                Dead();
+            }
+        }
+        else
+        {
+            pCurHealth -= damage;
+            if (pCurHealth <= 0)
+            {
+                ShadowForm();
+                charM.isShadow = true;
+            }
+        }
+
     }
     public void Dead()
     {
