@@ -16,10 +16,8 @@ public class GunController : MonoBehaviour
 
     void Start()
     {
-        enemy = GameObject.FindGameObjectWithTag("Enemy");
-        enemyH = enemy.GetComponentInChildren<EnemyHealth>();
+        
     }
-
 
     void FixedUpdate()
     {
@@ -49,6 +47,8 @@ public class GunController : MonoBehaviour
             Debug.Log("Skrat skrat");
             if (hit.collider.gameObject.tag == "Enemy")
             {
+                enemy = GameObject.FindGameObjectWithTag("Enemy");
+                enemyH = enemy.GetComponentInChildren<EnemyHealth>();
                 enemyH.TakeDamage(bDamage);
             }
         }

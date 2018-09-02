@@ -68,15 +68,31 @@ public class CharacterMovement : MonoBehaviour
             Debug.DrawLine(cameraRay.origin, pointToLook, Color.blue);
             transform.LookAt(new Vector3(pointToLook.x, transform.position.y, pointToLook.z));
         }
- 
-        if (isShadow)
+
+        if (isPossessed)
         {
-            ShadowForm();
+            if (Input.GetMouseButtonDown(0))
+            {
+                gunC.isFiring = true;
+            }
+            if (Input.GetMouseButtonUp(0))
+            {
+                gunC.isFiring = false;
+            }
         }
         else
         {
-            PuppetForm();
+            gunC.isFiring = false;
         }
+
+        //if (isShadow)
+        //{
+        //    ShadowForm();
+        //}
+        //else
+        //{
+        //    PuppetForm();
+        //}
     }
     void OnTriggerStay(Collider enemy)
     {
@@ -88,6 +104,7 @@ public class CharacterMovement : MonoBehaviour
                 Destroy(enemy.gameObject);
                 isShadow = false;
                 isPossessed = true;
+                PuppetForm();
                 Debug.Log("Entered wrong house fool");
             }
             Debug.Log("Lolwhayt");
@@ -106,19 +123,12 @@ public class CharacterMovement : MonoBehaviour
     public void PuppetForm()
     {
         Debug.Log("Enemy form");
-        isPossessed = true;
+        playerHealth.isPossessed = true;
         shadowForm.SetActive(false);
         enemyForm.SetActive(true);
         playerHealth.enabled = true;
+        playerHealth.PuppetForm();
         gunC.enabled = true;
         sMoveSpeed = 2.75f;
-        if (Input.GetMouseButtonDown(0))
-        {
-            gunC.isFiring = true;
-        }
-        if (Input.GetMouseButtonUp(0))
-        {
-            gunC.isFiring = false;
-        }
     }
 }

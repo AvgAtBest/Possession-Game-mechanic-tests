@@ -11,7 +11,7 @@ public class HealthController : MonoBehaviour
     public float sStartTime = 1f;
     public float pMaxHealth;
     public float pCurHealth;
-    bool isPossessed;
+    public bool isPossessed;
     bool isDead = false;
     bool damaged;
     public CharacterMovement charM;
@@ -48,22 +48,24 @@ public class HealthController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R))
         {
-            if (charM.isShadow)
+            if (charM.isShadow == true)
             {
                 charM.isShadow = false;
-                //isPossessed = true;
+                charM.isPossessed = true;
+                isPossessed = true;
                 PuppetForm();
             }
-            else
+            else 
             {
-                charM.isShadow = true;
                 ShadowForm();
-
             }
         }
     }
     public void ShadowForm()
     {
+        isPossessed = false;
+        charM.isPossessed = false;
+        charM.isShadow = true;
         sCurHealth = sMaxHealth;
         
     }
@@ -95,6 +97,7 @@ public class HealthController : MonoBehaviour
             {
                 ShadowForm();
                 charM.isShadow = true;
+                charM.isPossessed = false;
             }
         }
 
