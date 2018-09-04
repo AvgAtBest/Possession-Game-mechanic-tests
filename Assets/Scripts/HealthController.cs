@@ -13,7 +13,7 @@ public class HealthController : MonoBehaviour
     public float pCurHealth;
     public bool isPossessed;
     bool isDead = false;
-    bool damaged;
+    //bool damaged;
     public CharacterMovement charM;
 
 	public void Start ()
@@ -46,19 +46,19 @@ public class HealthController : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.R))
+        //if (Input.GetKeyDown(KeyCode.R))
         {
-            if (charM.isShadow == true)
-            {
-                charM.isShadow = false;
-                charM.isPossessed = true;
-                isPossessed = true;
-                PuppetForm();
-            }
-            else 
-            {
-                ShadowForm();
-            }
+            //if (charM.isShadow == true)
+            //{
+                //charM.isShadow = false;
+                //charM.isPossessed = true;
+                //isPossessed = true;
+                //PuppetForm();
+            //}
+            //else 
+            //{
+                //ShadowForm();
+            //}
         }
     }
     public void ShadowForm()

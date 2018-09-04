@@ -14,7 +14,7 @@ public class Enemy : MonoBehaviour
     public float attackRadius = 4f;
     public HealthController pHealth;
     public EnemyHealth eHealth;
-    public float distToTarget;
+    public float distToTarget = 100f;
     private float timer;
     //public RigidBody eRigidBody;
     void Awake ()

@@ -13,8 +13,7 @@ public class CharacterMovement : MonoBehaviour
     public GameObject shadowForm;
     public GameObject enemyForm;
     public Transform enemy;
-    //private Transform[] enemies;
-    //private int curIndex = 1;
+
     [Header("Player Mouse")]
     public Camera mainCamera;
     public GunController gunC;
@@ -24,10 +23,10 @@ public class CharacterMovement : MonoBehaviour
     {
         pRigid = GetComponent<Rigidbody>();
         pRigid.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezePositionY;
-        //enemies = enemyParent.GetComponentsInChildren<Transform>();
+
         mainCamera = FindObjectOfType<Camera>();
         playerHealth = this.GetComponent<HealthController>();
-        //gunC = GameObject.Find("Gun").GetComponent<GunController>();
+
         gunC = this.GetComponentInChildren<GunController>();
 
        
@@ -83,6 +82,7 @@ public class CharacterMovement : MonoBehaviour
         else
         {
             gunC.isFiring = false;
+            ShadowForm();
         }
 
         //if (isShadow)

@@ -16,7 +16,7 @@ public class GunController : MonoBehaviour
 
     void Start()
     {
-        
+
     }
 
     void FixedUpdate()
