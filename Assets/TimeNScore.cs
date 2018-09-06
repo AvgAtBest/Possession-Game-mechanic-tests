@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class TimeNScore : MonoBehaviour
 {
     public float time = 0f;
-    public int timeMultiplier = 100;
+    public float timeMultiplier = 100;
     public Text timer;
     public Text highScore;
 
@@ -20,6 +20,9 @@ public class TimeNScore : MonoBehaviour
     void Start()
     {
         ReadHighScore();
+
+        highScore = GameObject.Find("HighTime").GetComponent<Text>();
+        timer = GameObject.Find("Time").GetComponent<Text>();
 
         float scoreToDisplay = scoreArray[0] * 100;
         highScore.text = scoreToDisplay.ToString("##:##");
@@ -58,7 +61,7 @@ public class TimeNScore : MonoBehaviour
         string[] reader = File.ReadAllLines(path);
         for (int i = 0; i < reader.Length; i++)
         {
-            Debug.Log("Primary key is " + i + ". The data is " + reader[i] + "\n");
+            //Debug.Log("Primary key is " + i + ". The data is " + reader[i] + "\n");
             reader[i] = reader[i].Replace(':', '.');
 
             scoreArray.Add(float.Parse(reader[i]));

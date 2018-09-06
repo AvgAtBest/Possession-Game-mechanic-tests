@@ -15,9 +15,11 @@ public class HealthController : MonoBehaviour
     bool isDead = false;
     //bool damaged;
     public CharacterMovement charM;
-
+    public TimeNScore score;
 	public void Start ()
     {
+        score = GameObject.Find("TimeHandler").GetComponent<TimeNScore>();
+
         charM = this.GetComponent<CharacterMovement>();
         charM.isShadow = true;
 
@@ -37,10 +39,10 @@ public class HealthController : MonoBehaviour
             {
                 sCurHealth -= sHealthDecay;
                 sHealthDecayTime = sStartTime;
-                if (sCurHealth <= 0)
+                if (sCurHealth <= 0 && isDead == false)
                 {
                     Dead();
-                    //isDead = true;
+                    isDead = true;
                     //charM.enabled = false;
                 }
             }
@@ -100,11 +102,13 @@ public class HealthController : MonoBehaviour
                 charM.isPossessed = false;
             }
         }
-
     }
+
     public void Dead()
     {
         isDead = true;
         charM.enabled = false;
+        score.SaveScore();
+        //score.enabled = false;
     }
 }
